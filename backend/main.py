@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from backend.routes.profile import router as profile_router
 from backend.database.database import engine
 from backend.database import models
+from backend.routes.resume import router as resume_router
+
 
 app = FastAPI(
     title="Atlas AI",
@@ -12,6 +14,7 @@ models.Base.metadata.create_all(bind=engine)
 
 # Include profile routes
 app.include_router(profile_router)
+app.include_router(resume_router)
 
 
 @app.get("/")
