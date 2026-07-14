@@ -23,3 +23,17 @@ def save_profile(user: User, db: Session):
 def get_profile(db: Session):
 
     return db.query(UserDB).order_by(UserDB.id.desc()).first()
+
+def update_skills(db: Session, skills: list):
+
+    profile = get_profile(db)
+
+    if profile is None:
+        return None
+
+    profile.skills = ",".join(skills)
+
+    db.commit()
+    db.refresh(profile)
+
+    return profile
